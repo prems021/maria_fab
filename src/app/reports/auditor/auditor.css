@@ -1,0 +1,36 @@
+.css
+{
+
+background-color: red;
+}
+
+.r_hes
+{
+text-align:  center;
+font-size: 21px;
+font-weight: bold;
+}
+
+.t_h
+{
+background-color: blanchedalmond;
+align-items: center;
+align-content: center;
+}
+.total_amt
+{
+
+  float: right;
+  text-justify: auto;
+  background-color: wheat;
+  padding-right: 5%;
+  margin-right: 8%;
+}
+
+   #printable { display: none; }
+
+    @media print
+    {
+        #non-printable { display: none; }
+        #printable { display: block; }
+    }

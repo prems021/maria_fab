@@ -1,0 +1,468 @@
+
+
+<div class="home" id="non-printable" >
+   <img src="../../assets/home.svg" style="width:25px;" />
+<a routerLink="/dash" routerLinkActive="active">home</a>
+</div>
+
+<section id="non-printable">
+<label>Auditor Report</label>
+
+
+ <mat-slide-toggle [(ngModel)]="option" (change)="slide_change($event)">
+        <span *ngIf="option">B2B</span>   <span *ngIf="!option">B2C</span>   </mat-slide-toggle>
+
+
+<button mat-button color="primary" [disabled]="click === 1" (click)="generate_report()">Generate Report</button>
+
+<button *ngIf="view" style="float: right;
+    margin-right: 10px;" id="non-printable" class="btn btn-primary" (click)="print_re()" > Print</button>
+
+
+
+ </section>
+
+    
+<div *ngIf="view" class="top_of_table">
+
+
+
+  <div class="r_hes">
+    <div style="text-align: center;
+    font-size: x-large;"> MARIA FAB </div>
+<div style="text-align: center;font-size: unset;
+    margin-top: 5px;"> GST No : 32COQPD8681G1ZN  </div>
+ Auditor  Report <span *ngIf="!this.post_model.option"> ( B2C )  </span>  <span *ngIf="this.post_model.option"> ( B2B )  </span> </div>
+<span style="margin-left: 15px;
+    font-size: 18px;" class="fft" > Date from : {{this.post_model.from_date | date:'longDate' }} </span> <span style="margin-left: 15px;
+    font-size: 18px;"> Date to : {{this.post_model.to_date | date:'longDate'}} </span>
+</div>  
+
+
+<section *ngIf="view1" style="    width: 100%;
+height: 20px;
+text-align: center;
+font-size: 21px;
+font-weight: bold;"> 
+
+  Sales Details
+
+</section>
+
+
+
+<div *ngIf="view" class="table_card">
+ <div>
+
+<div style="margin-top: 10px;" class="">
+
+
+
+<!-- <div class="container">
+  <div class="row"> -->
+    <div class="col-xs-12">
+      <div class="table-responsive my_t" data-pattern="priority-columns">
+        <table class="table table-bordered table-hover">
+          
+          <thead class="t_h">
+            <tr>
+              <th>SI</th>
+                          
+              <th data-priority="5">Invoice Number</th>
+               <th data-priority="5">Bill Date</th>
+              <th data-priority="2">Customer Name</th>
+              <th data-priority="3"> Customer GST </th>
+              <th data-priority="4"> Amount </th>
+               <th data-priority="4"> Tax (CGST) </th>
+              <th data-priority="4"> Tax (SGST) </th>
+              <th data-priority="4"> Tax (CESS) </th>
+              <th data-priority="4"> Grand Total </th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor = "let item of post_invo.item ">
+              <td>{{item.SI}}</td>
+              <td>{{item.INVOICE_NUMBER}}</td>
+              <td>{{item.BILL_DATE  | date : 'longDate'}}</td> 
+              <td>{{item.CUSTOMER_NAME}}</td>
+              <td>{{item.CUSTOMER_GST_IN}}</td>
+              <td>{{item.SUB_TOTAL  | number : '1.2-2'}}</td>
+              <td>{{item.TAX_COLLECTED/2  | number : '1.2-2'}}</td>
+                <td>{{item.TAX_COLLECTED/2  | number : '1.2-2'}}</td>
+                <td>{{item.CESS_COLLECTED  | number : '1.2-2'}}</td>
+              <td>{{item.GRAND_TOTAL  | number : '1.2-2'}}</td>
+             
+              
+            </tr>
+           
+           
+          </tbody>
+          <tfoot>
+           
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  <!-- </div>
+</div> -->
+
+  
+  
+
+</div>    
+
+</div>
+</div>
+<div style="width: 10%">
+
+</div>
+
+<section *ngIf="view1">
+  
+   <div style="display: inline-block;
+    height: 25px;    
+    width: 10%;">
+     
+   </div> 
+
+  
+     <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Tax (CGST)
+     
+   </div> 
+       <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Tax (SGST)
+     
+   </div> 
+   <div style="display: inline-block;
+   height: 25px;    border-bottom: 1px solid;
+   font-size: 19px;    padding-left: 20px;
+   width: 15%;">Total Tax (CESS)
+    
+  </div> 
+     <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Grand Total     
+   </div> 
+
+</section>
+
+<section *ngIf="view1">
+
+    <div style="display: inline-block;
+    height: 25px;
+    width: 10%;">
+     
+   </div> 
+  
+
+     <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{total_tax/2 | number : '1.2-2'}}
+     
+   </div> 
+      <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{total_tax/2 | number : '1.2-2'}}
+     
+   </div> 
+   <div style="display: inline-block; padding-left: 20px;
+   height: 25px;font-weight: bold;
+   width: 15%;">{{total_cess | number : '1.2-2'}}
+    
+  </div> 
+     <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{total_grand | number : '1.2-2'}}
+     
+   </div> 
+
+</section>
+
+<section *ngIf="view1" style="    width: 100%;
+height: 20px;
+text-align: center;
+font-size: 21px;
+font-weight: bold;"> 
+
+  Sales Return Details
+
+</section>
+
+
+<div *ngIf="view1" class="top_of_table">
+	 <div>
+
+<div style="margin-top: 10px;" class="">
+
+
+
+<!-- <div class="container">
+  <div class="row"> -->
+    <div class="col-xs-12">
+      <div class="table-responsive my_t" data-pattern="priority-columns">
+        <table class="table table-bordered table-hover">
+          
+          <thead class="t_h">
+            <tr>
+              <th>SI</th>
+                          
+              <th data-priority="5">Invoice Number</th>
+              <th data-priority="5">Invoice String</th>
+               <th data-priority="5">Return Date</th>
+              
+              <th data-priority="3"> Description </th>
+              <th data-priority="4"> Quantity </th>
+               <th data-priority="4"> Tax Rate </th>
+              <th data-priority="4"> Price </th>
+              <th data-priority="4"> Tax Amount </th>
+              <th data-priority="4"> Cess Amount </th>
+             
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor = "let item of post_invo_r.item ">
+              <td>{{item.SI}}</td>
+              <td>{{item.INVOICE_NO}}</td>
+               <td>{{item.INVOICE_STRING}}</td>
+              
+              <td>{{item.RETURN_DATE  | date : 'longDate'}}</td> 
+             
+              <td>{{item.PRODUCT_DESCRIPTION}}</td>
+              <td>{{item.QUANTITY }}</td>
+             
+              <td>{{item.TAX}}</td>
+                <td>{{item. PRICE  | number : '1.2-2'}}</td>
+                <td>{{item.TAX_AMT | number : '1.2-2'}}</td>
+              <td>{{item.CESS_AMT  | number : '1.2-2'}}</td>
+            
+             
+              
+            </tr>
+           
+           
+          </tbody>
+          <tfoot>
+           
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  <!-- </div>
+</div> -->
+
+  
+  
+
+</div>    
+
+</div>
+
+</div>
+
+
+<section *ngIf="view">
+  
+   <div style="display: inline-block;
+    height: 25px;    
+    width: 10%;">
+     
+   </div> 
+
+  
+     <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Items(Return)
+     
+   </div> 
+
+   
+       <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Tax (Return)
+     
+   </div>
+
+
+ </section>  
+
+ <section *ngIf="view">
+
+    <div style="display: inline-block;
+    height: 25px;
+    width: 10%;">
+     
+   </div> 
+  
+
+ 
+      <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{total_tax_qty | number : '1.2-2'}}
+     
+   </div> 
+       <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{total_tax_ret | number : '1.2-2'}}
+     
+   </div> 
+</section>
+
+
+
+<section *ngIf="view1" style="    width: 100%;
+height: 20px;
+text-align: center;
+font-size: 21px;
+font-weight: bold;"> 
+
+Purchase Details
+
+</section> 
+
+<div *ngIf="view" class="table_card">
+ <div>
+
+<div style="margin-top: 10px;" class="">
+
+
+
+<!-- <div class="container">
+  <div class="row"> -->
+    <div class="col-xs-12">
+      <div class="table-responsive my_t" data-pattern="priority-columns">
+        <table class="table table-bordered table-hover">
+          
+          <thead class="t_h">
+            <tr>
+              <th>SI</th>
+                          
+              <th data-priority="5">Entry Number</th>
+               <th data-priority="5">Bill Date</th>
+              <th data-priority="2">Customer Name</th>
+              <th data-priority="3"> Customer GST </th>
+              <th data-priority="4"> IGST </th>
+               <th data-priority="4"> CGST </th>
+              <th data-priority="4"> SGST </th>
+              <th data-priority="4"> Grand Total </th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor = "let item of post_invo_pur.item ">
+              <td>{{item.SI_NO}}</td>
+              <td>{{item.EXPENCE_ENTRY_NO}}</td>
+              <td>{{item.EXP_DATE  | date : 'longDate'}}</td> 
+              <td>{{item.VENDOR}}</td>
+              <td>{{item.CUS_GST}}</td>
+              <td>{{item.IGST  | number : '1.2-2'}}</td>
+              <td>{{item.CGST  | number : '1.2-2'}}</td>
+                <td>{{item.SGST  | number : '1.2-2'}}</td>
+                <td>{{item.TOTAL_AMOUNT  | number : '1.2-2'}}</td>
+             
+             
+              
+            </tr>
+           
+           
+          </tbody>
+          <tfoot>
+           
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  <!-- </div>
+</div> -->
+
+  
+  
+
+</div>    
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<section *ngIf="view1">
+  
+   <div style="display: inline-block;
+    height: 25px;    
+    width: 10%;">
+     
+   </div> 
+
+  
+     <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Amount 
+     
+   </div> 
+       <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Tax (IGST)
+     
+   </div> 
+   <div style="display: inline-block;
+   height: 25px;    border-bottom: 1px solid;
+   font-size: 19px;    padding-left: 20px;
+   width: 15%;">Total Tax (CGST)
+    
+  </div> 
+     <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 15%;">Total Tax (SGST)   
+   </div> 
+
+</section>
+
+<section *ngIf="view7">
+
+    <div style="display: inline-block;
+    height: 25px;
+    width: 10%;">
+     
+   </div> 
+  
+
+     <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{to_amt | number : '1.2-2'}}
+     
+   </div> 
+      <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{to_igst | number : '1.2-2'}}
+     
+   </div> 
+   <div style="display: inline-block; padding-left: 20px;
+   height: 25px;font-weight: bold;
+   width: 15%;">{{to_cgst | number : '1.2-2'}}
+    
+  </div> 
+     <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 15%;">{{to_sgst | number : '1.2-2'}}
+     
+   </div> 
+
+</section>

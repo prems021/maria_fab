@@ -1,0 +1,243 @@
+
+
+
+
+
+
+
+
+<section *ngIf="disp ===0" style="margin-top:10px;">
+
+<div class="container-fluid col-xs-10 col-sm-10 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-4 col-lg-offset-4 shadow">
+<form [formGroup]="stateForm">
+
+
+
+     <div class="input_container form-group exo">  <label> Buyer Name : </label>  <input ngui-auto-complete #autos 
+             style="width:470px" class="form-control" formControlName="customer_name"  [source]="arrayOfCusValues"  
+            placeholder="Customer Search"    
+              (blur)="cus_blur(autos.value)"
+              list-formatter="(CUSTOMER_NAME) GSTIN"
+              display-property-name="CUSTOMER_NAME"> </div>
+
+     
+
+
+  <div class="form-group">
+    <label >Street</label>
+    <input  formControlName="street" type="text" class="form-control" placeholder="street">
+  
+  </div>
+   <div class="form-group">
+    <label >City</label>
+    <input formControlName="city" type="text" class="form-control" placeholder="city">
+     
+  </div>
+ <div class="form-group">
+    <label>GST IN</label>
+    <input  formControlName="gstin" type="text" class="form-control" placeholder="gstin">
+      
+  </div>
+ 
+<div class="row">
+<button mat-button color="primary" [disabled]="clicked === 1" (click)="generate_report()">Generate Report</button>
+</div>
+</form>
+
+</div>
+
+</section>
+
+
+
+<section class="head-disp" *ngIf="disp === 1" >
+
+  <section class="top_sec" id="non-printable">
+ 
+<div class="home" id="non-printable">
+   <img src="../../assets/home.svg" style="width:25px;" />
+<a routerLink="/dash" routerLinkActive="active">home</a>
+<button style="float: right;
+    margin-right: 10px;" id="non-printable" class="btn btn-primary" (click)="print_re()" > Print</button>
+
+     <button style="float: right;
+    margin-right: 22px;" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:28px;color:blue"></i></button>
+</div>
+
+</section> 
+
+
+
+<div style="text-align: center;
+    font-size: x-large;"> Aspire Computer Forms & Paper Products </div>
+<div style="text-align: center;font-size: unset;
+    margin-top: 5px;"> GST No : 32ACJPE9690H1ZF  </div>
+<div style="text-align: center;font-size: 20px;font-weight: bold;"> Customer Detailed Statement </div>
+
+  <div class="row header-row span-row">
+
+   <div style="display: inline-block; width: 16%;"> Customer Name  </div>
+   
+   <div style="display: inline-block; width: 15%;"> Customer City  </div>
+   
+   <div style="display: inline-block; width: 22%;"> Customer GSTIN </div>
+
+      <div style="display: inline-block; width: 21%;"> Date From </div>
+   
+   <div style="display: inline-block; width: 20%;"> Date To  </div>
+   
+   
+
+
+  </div>
+
+  <div class="row down-span-row">
+
+     <div style="display: inline-block; width: 15%;font-size: 16px;"> {{cus_name}}  </div>
+   
+   <div style="display: inline-block; width: 15%;font-size: 16px;"> {{cus_city}}  </div>
+   
+   <div style="display: inline-block; width: 22%;font-size: 16px;"> {{cus_gst}} </div>
+
+    
+   <div style="display: inline-block; width: 20%;font-size: 16px;"> {{from_date | date:'longDate' }} </div>
+   
+   <div style="display: inline-block; width: 20%;font-size: 16px;"> {{to_date | date: 'longDate'}} </div>
+  </div>
+
+
+     
+
+</section>
+
+
+<section class="main-disp" *ngIf="disp === 1" >
+
+<div *ngIf="view" class="table_card">
+ <div>
+
+<div style="margin-top: 10px;" class="">
+
+
+
+<!--  <div class="container">
+  <div class="row">  -->
+    <div class="col-xs-12">
+      <div class="table-responsive my_t" data-pattern="priority-columns">
+        <table class="table table-bordered table-hover">
+          
+          <thead class="t_h">
+            <tr>
+              <th>SI</th>
+                          
+              <th data-priority="5">Date</th>
+               <th data-priority="5">Particulars</th>
+              <th data-priority="2">Voucher Type</th>
+              <th data-priority="3"> Voucher No </th>
+              <th data-priority="4"> Debit </th>
+              <th data-priority="4"> Credit </th>
+              <th data-priority="4"> Balance </th>
+              
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor = "let items of cr_dr_model.item ">
+              <td>{{items.SI}}</td>
+              <td>{{items.DATE  | date : 'longDate' }}</td>
+              <td>{{items.PARTICULAR }}</td> 
+              <td>{{items.VOUCH_TYPE}}</td>
+              <td>{{items.VOUCH_NO }}</td>
+              <td>{{items.DEBIT | number : '1.2-2' }}</td>
+              <td>{{items.CREDIT | number : '1.2-2'}}</td>
+              <td>{{items.BALANCE | number : '1.2-2'}}</td>
+       
+             
+              
+            </tr>
+           
+           
+          </tbody>
+          <tfoot>
+           
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+  
+  
+
+</div>
+</div>
+</div>
+<div style="width: 10%">
+
+</div>
+
+ 
+</section>
+
+
+<section *ngIf="disp === 1">
+  
+   <div style="display: inline-block;
+    height: 25px;    
+    width: 40%;">
+     
+   </div> 
+
+  <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 20%;">Total Receipts
+     
+   </div> 
+
+    <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 20%;">Total Debits
+     
+   </div> 
+
+       <div style="display: inline-block;
+    height: 25px;    border-bottom: 1px solid;
+    font-size: 19px;    padding-left: 20px;
+    width: 20%;">Total Balance
+     
+   </div> 
+
+ </section>
+
+ <section *ngIf="disp === 1">
+
+    <div style="display: inline-block;
+    height: 25px;
+    width: 40%;">
+     
+   </div> 
+  
+  <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 20%;">{{total_cash_amy | number : '1.2-2'}}  
+     
+   </div> 
+
+    <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 20%;">{{total_bill_amt + mariane_total  | number : '1.2-2'}}  
+     
+   </div> 
+      <div style="display: inline-block; padding-left: 20px;
+    height: 25px;font-weight: bold;
+    width: 20%;">{{credit_bal | number : '1.2-2'}}  
+     
+   </div> 
+ </section>
+
+
+
+
+
+
+

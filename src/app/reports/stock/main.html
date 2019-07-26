@@ -1,0 +1,110 @@
+<div *ngIf="view" class="top_of_table">
+
+    <section class="top_sec" id="non-printable" >
+   
+  <div class="home">
+     <img src="../../assets/home.svg" style="width:25px;" />
+  <a routerLink="/dash" routerLinkActive="active">home</a>
+  </div>
+  <button style="float: right;
+    margin-right: 10px;" id="non-printable" class="btn btn-primary" (click)="print_report()" > Print</button>
+
+    <button style="float: right;
+    margin-right: 22px;" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:28px;color:blue"></i></button>
+    
+  </section> 
+  
+    <div class="r_hes" style="MARGIN-TOP: 10PX;
+      MARGIN-BOTTOM: 10PX;
+      TEXT-ALIGN: CENTER;
+      FONT-SIZE: 24PX;
+      FONT-WEIGHT: BOLD;
+      TEXT-DECORATION: UNDERLINE;">
+  <h3> Stock Report </h3> </div>
+  
+  </div>  
+  
+  
+  
+  
+  <div *ngIf="view" class="table_card">
+   <div>
+  
+  <div class="">
+  
+  
+  
+  
+      <div class="col-xs-12">
+        <div class="table-responsive my_t" data-pattern="priority-columns">
+          <table class="table table-bordered table-hover">
+            
+            <thead class="t_h">
+              <tr>
+                <th>SI</th>
+                            
+                <th data-priority="2">Description</th>
+                <th data-priority="2">Hsn Code</th>
+               
+                
+                <th data-priority="5"> Quantity Available </th>
+             
+              </tr>
+            </thead>
+            <tbody >
+              <tr *ngFor = "let item of product_array let k = index; ">
+                <td>{{k+1}}</td>
+                <td>{{item.DESCRIPTION}}</td>
+                <td>{{item.HSN_CODE}}</td> 
+              
+                <td>{{item.AVAIL_QTY}}</td>
+               
+                
+              </tr>
+             
+             
+            </tbody>
+            <tfoot>
+             
+            </tfoot>
+          </table>
+        </div><!--end of .table-responsive-->
+      </div>
+    <!-- </div>
+  </div> -->
+  
+    
+    
+  
+  </div>    
+  
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <div *ngIf="!view">
+      
+  <div class="box"><div class="sk-circle">
+  
+  </div>
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  
+    </div>
+    </div>
+  </div> 
+  

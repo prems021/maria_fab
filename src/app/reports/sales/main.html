@@ -1,0 +1,190 @@
+<section style="width: 100%; height: 30px;" id="non-printable">
+
+  <div class="home" id="non-printable">
+   <img src="../../assets/home.svg" style="width:25px;" />
+   <a routerLink="/dash" routerLinkActive="active">home</a>
+ </div>
+  
+<button  *ngIf="is_res" style="float: right;
+    margin-right: 10px;" id="non-printable" class="btn btn-primary" (click)="print_re()" > Print</button>
+       <button style="float: right;
+    margin-right: 22px;" (click)="exportAsXLSX()"><i class="fa fa-file-excel-o" style="font-size:28px;color:blue"></i></button>
+
+
+</section>
+
+
+
+
+
+<section id="non-printable" *ngIf="view_cat" style="width: 100%; height: 50px;">
+  
+      <div style="width: 10%;display: inline-block;">
+
+          <label> Select Category </label>
+
+     </div>
+
+ <div style="width: 30%;display: inline-block;">
+
+
+
+    <div  style="width: 100%;
+    margin-left: 20px;
+    display: inline-block;">
+      <form [formGroup]="dateFormm">
+        <select class="form-control" #box (change)=change_cat(box.value) formControlName="cat"   id="cats">
+                                 
+            <option *ngFor="let cat of cats" [value]="cat" >{{cat}}</option>
+           </select>
+         </form>  
+
+    </div>
+
+</div>
+    <div  style="width: 32%;
+    margin-left: 20px;
+    display: inline-block;">
+
+        <button style="
+    margin-left: 10px;" id="non-printable" class="btn btn-primary" (click)="search_by_cats()">Search</button>
+       
+    </div>
+
+
+ <button style="float: right;
+    margin-right: 10px;"  class="btn btn-primary" (click)="print_report()" > Print</button>
+  
+
+
+</section>
+
+ 
+
+
+
+
+<section *ngIf="view" style="width: 100%;height: 30px;">
+  
+<div style=" width: 100%;
+    height: 10px;
+    font-size: x-large;
+    text-align: center;"> Sales Report </div>
+
+<div style="width: 100%;
+    height: 10px;">
+<label style="width: 100%;height: 10px;">
+  
+  Date from : {{from_date | date:'short' }}   Date to : {{to_date | date:'short'}}
+</label>  
+
+<label>
+  Category  : {{category}}
+</label>
+ 
+
+ </div>
+
+</section>
+
+
+
+<section *ngIf="view" style="width: 100%;
+    margin-top: 30px;">
+
+  <div class="table_card">
+
+
+
+    <div class="col-xs-12">
+      <div class="table-responsive my_t" data-pattern="priority-columns">
+        <table class="table table-bordered table-hover">
+          
+          <thead class="t_h">
+            <tr>
+              <th>SI</th>
+                <th data-priority="2">Article Code</th>           
+              <th data-priority="2">Description</th>
+              <th data-priority="3"> Quantity </th>
+              <th data-priority="3"> Total Amount </th>
+            </tr>
+          </thead>
+          <tbody >
+            <tr *ngFor = "let item of post_invo.item ">
+              <td>{{item.SI}}</td>
+              <td>{{item.HSN_CODE }}</td>
+               <td>{{item.DESCRIPTION }}</td>
+              <td>{{item.QUANTITY}}</td>
+              <td>{{item.AMOUNT | number : '1.2-2'}}</td>
+             
+              
+            </tr>
+           
+           
+          </tbody>
+          <tfoot>
+           
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+
+  
+  
+
+</div>  
+  
+
+</section>
+
+
+
+
+
+<!-- 
+<div *ngIf="view" class="table_card">
+ <div>
+
+
+
+  
+
+
+
+  
+
+</div>
+</div> -->
+<div style="width: 10%">
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div *ngIf="!view">
+<div class="box"><div class="sk-circle">
+
+</div>
+<div class="spinner">
+  <div class="rect1"></div>
+  <div class="rect2"></div>
+  <div class="rect3"></div>
+  <div class="rect4"></div>
+  <div class="rect5"></div>
+
+  </div>
+  </div>
+</div> 
+
+

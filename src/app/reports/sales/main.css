@@ -1,0 +1,28 @@
+.home
+{
+   font-family: cursive; 
+      
+    
+}
+
+.mats
+{
+      border: 3px solid rosybrown;
+    border-radius: 8px;
+}
+
+.sel_header
+{
+padding-left: 12%;
+}
+
+#printable { display: none; }
+
+@media print
+{
+    #non-printable { display: none; }
+    #printable { display: block; transform: scaleY(.7); transform: scaleX(.7); }
+   /* #body {transform: scale(.7);}*/
+    /*table {page-break-inside: avoid;} */
+  
+}

@@ -1,0 +1,122 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#/dash">Home</a></li>
+    <li class="breadcrumb-item"><a href="#/dash">Reports</a></li>
+  
+  </ol>
+</nav>
+
+
+<div *ngIf="option === 0" class="list-group"> 
+
+
+ <h4 class="sel_header"> Select Duration </h4>
+
+ <div class="row">
+  <div class="col-sm-2"></div>
+
+   <div class="col-xs-2">
+   
+ <mat-form-field>
+  <input matInput [matDatepicker]="from_date"  placeholder="Start Date" (dateInput)="cat_from_date(from_date)">
+  <mat-datepicker-toggle matSuffix [for]="from_date"></mat-datepicker-toggle>
+  <mat-datepicker #from_date></mat-datepicker>
+</mat-form-field>
+    </div>
+ <div class="col-sm-1"> </div>
+     <div class="col-xs-2 todate">
+   
+ <mat-form-field>
+
+  <input matInput [matDatepicker]="to_date" [(ngModel)]="myDate"  placeholder="End Date" (dateInput)="cat_to_date(to_date)">
+  <mat-datepicker-toggle matSuffix [for]="to_date"></mat-datepicker-toggle>
+  <mat-datepicker #to_date></mat-datepicker>
+</mat-form-field>
+    </div>
+</div>
+
+</div>
+
+<section style="width: 100%; padding-left: 20%;">
+
+<div *ngIf="option ===0" class="col-sm-6">
+<mat-card  class="mats">
+
+
+
+
+<div  class="list-group"> 
+  <a href="#" class="list-group-item active">
+   
+    <h4 class="list-group-item-heading">Find your Report Type</h4>
+    
+  </a>
+
+
+  <a href="/#/report_stock" class="list-group-item">
+    
+    <h4 class="list-group-item-heading">Stock Report</h4>
+    
+  </a>
+
+  <a href="/#/stock_report_detail" class="list-group-item">
+    <h4 class="list-group-item-heading">Detailed Stock Report</h4>   
+  </a>
+
+  <a href="/#/report_revenue" class="list-group-item">
+    <h4 class="list-group-item-heading">Revenue Report</h4>
+    
+  </a>
+
+   <a href="#/expense_report" class="list-group-item">
+    <h4 class="list-group-item-heading">Expence Report</h4>
+    
+  </a>
+
+ 
+
+
+
+    <a href="#/sales_report" class="list-group-item">
+    <h4 class="list-group-item-heading">Sales Report</h4>   
+  </a>
+
+   
+ 
+
+   <a href="#/purchase_report" class="list-group-item">
+    <h4 class="list-group-item-heading">Purchase Report</h4>
+    
+  </a>
+
+
+   <a href="#/customer_statement" class="list-group-item">
+    <h4 class="list-group-item-heading">Customer Statement Report (B2B) </h4>
+   
+  </a>
+
+   <a href="#/report_auditor" class="list-group-item">
+    <h4 class="list-group-item-heading">Auditor Report </h4>
+   
+  </a>
+
+   <a href="#/Cus-cr-deb" class="list-group-item">
+    <h4 class="list-group-item-heading">Credit Debit Report </h4>
+   
+  </a>
+
+   
+
+ 
+
+</div>
+
+
+</mat-card>
+
+</div>
+
+
+
+</section>
+ 
