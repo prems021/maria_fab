@@ -1,0 +1,193 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#/dash">Home</a></li>
+    <li class="breadcrumb-item"><a href="#/dash">Product</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+  </ol>
+</nav>
+
+
+
+
+<section class="middle_sec">
+
+<div class="container-fluid col-xs-10 col-sm-10 
+col-md-6 col-lg-4 
+col-xs-offset-1 col-sm-offset-1 
+col-md-offset-4 col-lg-offset-4 shadow" style="background-color:#e9ecef;">
+<form [formGroup]="productForm">
+
+
+   <div class="form-group">
+    <label >Article Code</label>
+    <input id="product_code" formControlName="article_code" type="text" class="form-control" placeholder="Article Code">
+    <small [hidden]="productForm.controls.article_code.valid" class="text-danger">
+                                               Article code is required.
+                                       </small>
+  </div>
+  
+
+  <div class="form-group">
+    <label >HSN Code</label>
+    <input id="product_code" formControlName="hsn_code" type="text" class="form-control" placeholder="HSN Code">
+    <small [hidden]="productForm.controls.hsn_code.valid" class="text-danger">
+                                             HSN code is required.
+                                       </small>
+  </div>
+
+  <div class="form-group">
+    <label >Category  <span>   <button mat-fab type="button" style="background-color: slateblue;" (click)="open_modal()">
+      +
+    </button>  </span>       </label> 
+    <select class="form-control"  formControlName="category" id="unit">
+                                 
+        <option *ngFor="let cat of cats" [value]="cat">{{cat}}</option>
+       </select>
+    <!-- <input id="product_code" formControlName="category" type="text" class="form-control" placeholder="category"> -->
+    <small [hidden]="productForm.controls.category.valid" class="text-danger">
+      Category is required.
+                                       </small>
+                                     
+  </div>
+
+
+
+
+  <div class="form-group">
+      <label >Description</label>
+      <input id="product_des" formControlName="description" type="text" class="form-control" placeholder="description">
+      <small [hidden]="productForm.controls.description.valid" class="text-danger">
+        Description is required.
+                                         </small>
+    </div>
+
+     <div class="form-group">
+    <label >Brand Name</label>
+    <input id="product_bn" formControlName="brand_name" type="text" class="form-control" placeholder="brand name">
+    <small [hidden]="productForm.controls.brand_name.valid" class="text-danger">
+      Category is required.
+                                       </small>
+  </div>
+
+  <div class="form-group">
+    <label >Specification</label>
+    <input id="product_spec" formControlName="specification" type="text" class="form-control" placeholder="specification">
+    <small [hidden]="productForm.controls.specification.valid" class="text-danger">
+      Category is required.
+                                       </small>
+  </div>
+
+
+
+   <div class="form-group">
+    <label> Unit </label>
+     <select class="form-control" formControlName="unit" id="unit">
+                                 
+                                               <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
+                                               </select>
+     
+  </div>
+
+  <div class="form-group">
+    <label>Tax</label>
+    <input id="tax" formControlName="tax" type="number" class="form-control" placeholder="tax">
+      <small [hidden]="productForm.controls.tax.valid" class="text-danger">
+                                            Tax is required.
+                                       </small>
+  </div> 
+
+   
+   <div class="form-group">
+    <label> Opening Stock </label>
+    <input  formControlName="opening_stock"    type="number"  class="form-control" placeholder="Opening Stock">
+   </div>
+
+  
+   <div class="form-group">
+    <label> Net Price </label>
+    <input  formControlName="net_price"  (keyup)="cal_price()"  type="number"  class="form-control" placeholder="net price">
+   </div> 
+
+
+   <div class="form-group">
+    <label> Price </label>
+    <input  formControlName="price"    type="number"  class="form-control" placeholder="price">
+   </div>
+
+
+   <div class="form-group">
+    <label>Purchase Price </label>
+    <input  formControlName="pur_price"    type="number"  class="form-control" placeholder="purchase price">
+   </div>
+
+ <div class="form-group">
+    <label>  </label>
+   
+   </div>
+
+
+
+
+</form>
+
+
+
+ <button class="btn btn-primary pull-right" (click)="add_product()" type="button"><span class="glyphicon glyphicon-ok"></span> Done</button>
+</div>
+</section>
+
+
+
+
+
+<div id="snackbar">{{snak_msg}}</div>
+
+
+
+
+
+
+<!-- <button id="myBtn">Open Modal</button> -->
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+
+  <!-- Modal content -->
+  <div class="modal-content">
+      <label  class="btn btn-primary" >
+          Add New Category
+      </label> 
+
+
+
+
+        <form [formGroup]="product_add_Form">
+             <div class="form-group fm">
+              <label for="cat_name">Category Name</label>
+              <input id="product_name"  formControlName="cat_name"  type="text" class="form-control"
+               placeholder="Category Name">
+               <small [hidden]="product_add_Form.controls.cat_name.valid" class="text-danger">
+                                                         Name is required (minimum 3 characters).
+                                                 </small>
+            </div>
+
+            <button  style="width: 150px;" type="button" class="btn btn-primary" (click)="add_cat()">
+                Add
+              </button> 
+
+              <button style="width: 150px;margin-left: 10px;" type="button" class="btn btn-primary" (click)="close_modal()">
+                  Cancel
+                </button>
+        
+            </form>
+
+<!-- 
+    <span class="close">&times;   </span>
+    
+
+
+    <p>Some text in the Modal..</p> -->
+  </div>
+
+</div>

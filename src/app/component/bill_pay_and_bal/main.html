@@ -1,0 +1,64 @@
+<!-- <section id="non-printable">
+
+<div class="col-sm-12">
+
+  <div class="row">
+
+     <div class="col-sm-4" id="non-printable"style="margin-top: -2.5%;">   
+          <span class="input-group-addon" id="basic-addon3">Total Paid  </span>
+          <input #box34 type="number" class="form-control " (focus)="on_focus_total_paid()" (blur)="blur_paid_today" [(ngModel)]="total_paid"  
+                      style="width: 70%; border-color : #1dc;" 
+          (keyup)="keyup_on_paid_today(box34.value)"  id="basic-url" aria-describedby="basic-addon3">
+     </div>
+
+    <div class="col-sm-4" id="non-printable" style="margin-top: -2.5%;">
+      <span class="input-group-addon" id="basic-addon3" >Total Due </span>
+      <input type="number"  class="form-control " [(ngModel)]="ss.invoice_model.total_due" style="width: 70%; border-color : #1dc; 
+      " id="basic-url" aria-describedby="basic-addon3">
+    </div>   
+
+
+  
+
+</div>
+</div>
+
+</section> -->
+
+
+
+<section id="non-printable">
+
+  <div class="col-sm-12">
+  
+    <div class="row">
+  
+  
+        <div class="col-sm-4" id="non-printable"style="margin-top: -2.5%;">   
+            <span class="input-group-addon" id="basic-addon3">Previous Payments </span>
+            <input [attr.disabled]="true" #box34 type="number" class="form-control "  
+           [(ngModel)]="ss.i_m.tails[0].TOTAL_PRE_PAID"  style="width: 70%; border-color : #1dc;" 
+            id="basic-url" aria-describedby="basic-addon3">
+       </div>
+  
+       <div class="col-sm-4" id="non-printable"style="margin-top: -2.5%;">   
+            <span class="input-group-addon" id="basic-addon3">Total Paid  </span>
+            <input #box34 type="number" class="form-control " (focus)="on_focus_total_paid()" (blur)="blur_paid_today" 
+           [(ngModel)]="ss.i_m.tails[0].TOTAL_PAID_TODAY"  style="width: 70%; border-color : #1dc;" 
+            (keyup)="keyup_on_paid_today()"  id="basic-url" aria-describedby="basic-addon3">
+       </div>
+  
+      <div class="col-sm-4" id="non-printable" style="margin-top: -2.5%;">
+        <span class="input-group-addon" id="basic-addon3" >Total Due </span>
+        <input type="number"  class="form-control " [(ngModel)]="ss.i_m.tails[0].TOTAL_DUE" 
+        style="width: 70%; border-color : #1dc; 
+        " id="basic-url" aria-describedby="basic-addon3">
+      </div>   
+  
+  
+    
+  
+  </div>
+  </div>
+  
+  </section> 

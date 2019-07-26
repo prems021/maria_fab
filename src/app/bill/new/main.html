@@ -1,0 +1,755 @@
+
+
+
+
+<section style="height: 10px;" id="non-printable"  *ngIf="!print_section" >
+  <a routerLink="/dash" routerLinkActive="active">home</a>
+
+</section> 
+
+
+
+<app-bill-top-b2b id="non-printable"  *ngIf="!print_section" > </app-bill-top-b2b>
+
+ 
+
+<section id="non-printable"  *ngIf="!print_section" >
+ 
+</section>  
+
+ <section id="non-printable"  *ngIf="!print_section" >
+
+<div class="items-card"  *ngFor="let item of ss.i_m.items; let k=index " ng-animate="'slide-down'">
+
+   <mat-card class="item-card">
+      <div style=" width: 4%; display: inline-block; ">
+              {{k+1}} 
+     </div>
+
+         <div  style="width: 28%; display: inline-block; ">
+        <input  style="width: 98%; text-align:center"    ngui-auto-complete #autos   [(ngModel)]="item.ARTICLE_CODE" 
+         [source]="arrayOfKeyValues"  
+            placeholder="Description" (focus)="focus_one(k)"  
+              (blur)="change_one(autos.value)"
+              list-formatter="[ARTICLE_CODE] DESCRIPTION"
+              display-property-name="ARTICLE_CODE"> 
+
+      </div>   
+
+   
+
+         <div style="width:2%; display:inline-block;"> </div>
+      <div style="width:12.5%; display:inline-block;">
+
+        <input  style="width: 98%; text-align:center"     #autos2   [(ngModel)]="item.HSN_CODE" 
+       
+           placeholder="hsn" >
+
+        
+        
+       
+    </div> 
+
+
+
+
+
+
+
+
+
+
+
+     <div style="width : 9.1%;display: inline-block;">
+        
+           <input #box style="text-align:center;" size="6"  placeholder="Quantity"  (focus)="focus_one(k)" 
+         (keyup)="change_qty(box.value)"
+         [(ngModel)]="item.QTY">  
+        
+        
+    </div>
+
+    <div style=" width : 3.5%;display: inline-block;">
+
+       {{item.UNIT}}
+  
+     </div>
+
+       <div style="width : 5.7%;display: inline-block;">
+        
+           <input [disabled]="true"  #boxgst style="text-align:center;" size="5"     
+         
+         [(ngModel)]="item.TAX">  
+        
+        
+    </div>
+
+       <div style="width : 1.7%;display: inline-block;">
+        
+                        
+       </div>
+
+        <div style="width : 12.35%;display: inline-block;">
+        
+           <input #box_rate  style="text-align:center;"
+          size="13" placeholder="PRICE" [disabled]="true"  [(ngModel)]="item.PRICE" >  
+        
+        
+    </div>
+
+
+
+    <div style=" width : 12%;   display: inline-block;">
+        <input #box_net [(ngModel)]="item.NET_PRICE"  (focus)="focus_one(k)" 
+         (keyup)="change_net_price(box_net.value)" style="text-align:center;" 
+        size="10" placeholder=" " > 
+            
+    </div>
+
+
+
+ 
+     <div style="width:2%; display:inline-block">
+  
+         <button *ngIf="isPrint"   style="width:100%;" (keydown.f4)="addItem()" (click)="addItem()" 
+          (keydown.ArrowDown)="addItem(k)" (keydown.ArrowUp)="RemoveItem(k)" >+</button> 
+
+   </div>
+
+
+   <div style="width:.5%; display:inline-block">
+   </div>
+   
+   <div style="display: inline-block; width: 2%;"> 
+               <button  [disabled]="item_remove_flag()" style="width:100%;" (click)="RemoveItem(k)">X</button>
+   </div>
+   
+   <div style="width:.5%; display:inline-block">
+    </div>
+
+   <!-- <div *ngIf="ss.i_m.configs[0].IS_ON_UPDATE"  style="display: inline-block; width: 2%;"> 
+      <mat-checkbox (change)="is_ret()" [(ngModel)] = "item.IS_RETURN">Return</mat-checkbox>
+    </div> -->
+  
+  <div style="width:2%; display:inline-block">
+  
+       
+
+
+   </div>  
+
+
+   </mat-card>
+
+</div>
+
+</section>
+
+
+ 
+<section id="non-printable" >
+
+  <label  style="width:70%;height: 80px;display: inline-block;padding-left:50%;font-size:20px;font-weight:bold">
+    Sub Total :
+     {{ ss.i_m.tails[0].SUB_TOTAL | number : '1.2-2'}} </label>
+
+
+
+
+  <label  style="width:30%;height: 80px;display: inline-block;font-size:20px;font-weight:bold">
+  
+    Grant Total :
+    {{ ss.i_m.tails[0].GRAND_TOTAL | number : '1.2-2'}} </label>
+
+</section>
+  
+
+
+
+<app-bill-pay-bal-section id="non-printable"  *ngIf="!print_section"  [grand_total]="ss.i_m.tails[0].GRAND_TOTAL">
+</app-bill-pay-bal-section>
+  
+   <button  *ngIf="!ss.i_m.configs[0].IS_ON_UPDATE"  [disabled]="isClickedOnce" id="non-printable" class="btn btn-primary" style="margin-top: 10px;
+    
+    margin-left: 50%;"  (click)="print_invoice()">Print</button>
+
+
+<button *ngIf="ss.i_m.configs[0].IS_ON_UPDATE"  [disabled]="up_click_once" id="non-printable" class="btn btn-primary" style="margin-top: 10px;
+    
+margin-left: 50%;"  (click)="update_invoice()">Update & Print</button>
+
+ 
+<div id="snackbar">{{snak_msg}}</div>
+
+
+
+
+
+
+<section   style="width: 100%;height:99%;border: 1px solid" id="printable">
+
+  <!--  <div style="font-size: 18px;width: 100%;height: 25px;display: inline-block;font-weight: bold;padding-left: 10px;"> 
+     GST IN : {{company_gst}}  </div> -->
+
+
+
+
+
+    <section style="width:100%;height:175px;border-bottom:1px solid;">
+    <div style="width: 28%;height: 120px;display: inline-block;"> 
+     <img src="../assets/maria_logo.JPG" style="width: 420px; padding-top: 5px;padding-left: 30px;height: 170px;
+     position: absolute;" /> 
+    </div> 
+    <div style="width: 80%;height: 130px;display: inline-block;position: absolute;">
+    <div style="font-size: 45px; 
+    font-weight: bold;
+    text-align: center;
+    display: inline-block;
+    width: 100%;
+    height: 57px;"> 
+      {{company_name}}  <!--  SR BUILDING MATERIALS  -->
+    </div>
+      <div style="font-size:20px;text-align:center;display:inline-block;width:100%;height:82px;"> 
+        SRM Road, Pachalam <br> Ernakulam, Kerala Pin : 682012 <br> Ph : 0474 2761065 , 9400229365 
+       <br> <span style="font-weight: bold"> GSTIN No: {{company_gst}}  </span> 
+     <!--   Papinsheri Haji Road Kannur <br> Ph : 9656218061  -->
+    </div>
+
+
+ 
+    </div>
+  </section> 
+
+
+  <section id="container" style="width: 100%;height:30px;border-bottom:1px solid #7bd6b3"> 
+    <label style="font-size: 24px;font-weight: bold;text-align: center;width: 100%;text-decoration: underline;margin-top: -7px;"> Tax Invoice </label>
+    </section>
+
+<section id="container" style="width: 100%;height:128px;border-bottom:1px solid #7bd6b3"> 
+
+  <div style="width:50%;display:inline-block;height:128px;border-right:1px solid;padding-left: 10px;">
+    
+                <label  style="display:inline-block;width:40%;height:16px;"> State : Kerala </label> 
+                <label  style="display:inline-block;width:40%;height:16px;">   State Code: 32 </label> 
+  <label  style="width:100%;height:16px;display:inline-block;font-weight: bold;">
+
+      Invoice Number: &nbsp;  {{ss.i_m.heads[0].INVOICE_STRING}}
+
+  <span *ngIf="ss.i_m.configs[0].IS_B2B">/ B /</span>   <span *ngIf="!ss.i_m.configs[0].IS_B2B">/ C /</span>  
+
+
+  {{ss.i_m.heads[0].INVOICE_NUMBER}} </label>
+             <label  style="width:100%;height:16px;display:inline-block;"> 
+              Date Of Invoice : {{ss.i_m.heads[0].BILL_DATE | date : 'longDate'}} </label>
+             <label style="width:100%;height:16px;display:inline-block;">   No Of Bundles  : {{ss.i_m.heads[0].BUNDLES}}   </label>
+              <label  style="width:50%;height:16px;display:inline-block;"> LPO No  : {{ss.i_m.heads[0].LPO}}   </label>
+              <label  style="width:50%;height:16px;display:inline-block;"> Place Of Supply : {{ss.i_m.heads[0].DN}}   </label>
+
+
+   </div>
+
+    <div id="infoi" style="width:50%;display:inline-block;margin-top: 4px;">
+        <div style="padding-left:10px;display:inline-block;width: 100%;height:30px;font-weight: bold;">
+                         Customer Name : {{ss.i_m.heads[0].CUSTOMER_NAME}}
+                   </div>
+                   <div style="padding-left:10px;display:inline-block;width: 100%;height:30px;">
+                        Address : {{ss.i_m.heads[0].CUSTOMER_STREET}} {{ss.i_m.heads[0].CUSTOMER_CITY}}
+                   </div>
+                  
+                   <div style="padding-left:10px;display:inline-block;width: 50%;height:30px;">
+                      Contact : {{ss.i_m.heads[0].CUSTOMER_PHONE}}
+                   </div>
+                    <div style="padding-left:10px;display:inline-block;width: 50%;height:30px;">
+                      Mobile : {{ss.i_m.heads[0].CUSTOMER_PHONE2}}
+                   </div>
+                   <div style="padding-left:10px;display:inline-block;width: 50%;height:30px;">
+                   PAN No : {{ss.i_m.heads[0].CUSTOMER_PAN}}
+                   </div>
+                    <div style="padding-left:10px;display:inline-block;width: 50%;height:30px;">
+                   GST No : {{ss.i_m.heads[0].CUSTOMER_GST_IN}}
+                   </div>
+                 
+      </div>
+
+
+</section>
+
+  
+
+
+
+
+
+
+
+  <section id="container"  style="height:482px;background-color:#dde;width: 100%;border-bottom:1px solid;border-top:1px solid;
+      margin-left: 0px;border-left:1px solid; ">
+
+<table id="navi"  style="width:100%;">
+  <tr style="border-bottom: 1px solid;">  
+         <th style="width:2.8%; border-right:1px solid;padding-left:5px;padding-top:7px;">SN</th>
+         <th style="width:26.3%;border-right:1px solid;padding-left:5px;"> Description </th>
+         <th style="width:4%;border-right:1px solid; padding-left:5px;"> HSN </th>
+         <th style="width:4.8%;border-right:1px solid; padding-left:5px;"> AC </th>
+          <th  style="width:3.5%; border-right:1px solid;padding-left:5px;"> QTY </th>
+         <th  style="width:3.5%;border-right:1px solid;padding-left:3px;"> Unit </th>
+        <th  style="width:7%; border-right:1px solid;padding-left:3px;"> Rate </th>
+         <th style="width:8.2%;border-right:1px solid;padding-left:5px;"> Net Price </th>
+         
+         
+   </tr>       
+     <tr style="height:482px;" >
+
+
+     
+        
+     
+        <td style="border-right: 1px solid;border-bottom: 1px solid;border-left: 2px solid;">  </td>  
+       
+        <td style="border-right: 1px solid;border-bottom: 1px solid">  </td>  
+          
+         <td style="border-right: 1px solid;border-bottom: 1px solid">  </td>  
+          <td style="border-right: 1px solid;border-bottom: 1px solid">  </td> 
+          <td style="border-right: 1px solid;border-bottom: 1px solid">  </td> 
+        <td style="border-right: 1px solid;border-bottom: 1px solid">  </td> 
+         <td style="border-right: 1px solid;border-bottom: 1px solid">  </td>  
+        <td style="border-right: 1px solid;border-bottom: 1px solid">  </td> 
+    
+     
+     
+       
+   </tr>  
+
+  </table>
+
+<div style="display:inline-block; width:100%;height:40px;"> </div>
+
+   <div style="width:100%;" *ngFor="let item of ss.i_m.items; let k=index; " ng-animate="'slide-down'" style="height: 40px;">
+
+         
+     <div style="display:inline-block;width:5.2%;padding-left:12px;">
+       {{k+1}}
+     </div>
+   
+
+   <div style="display:inline-block;width:42.9%;line-height: 15px; ">
+       {{item.ARTICLE_CODE}} 
+     </div>
+
+  
+      <div style="display:inline-block;width:6.6%; text-align: center; ">
+       {{item.HSN_CODE}}
+     </div>
+
+        <div style="display:inline-block;width:7.6%; text-align: center; ">
+       {{item.ARTICLE_CODE}}
+     </div>
+
+
+     <div style="display:inline-block;width:5.5%; text-align: center; ">
+      {{item.QTY}}
+     </div>
+
+   
+     
+     <div style="display:inline-block;width:6%; text-align: center;">
+        {{item.UNIT }}
+     </div>
+
+
+
+      <div style="display:inline-block;width:12%;text-align: center;">
+        {{item.PRICE | number : '1.2-2'}}
+     </div>
+
+        <!-- <div style="display:inline-block;width:5.1%;text-align: center;">
+        {{item.N_W2 | number : '1.0-0'}}
+     </div> -->
+
+       <div style="display:inline-block;width:14%; text-align: center;">
+        {{item.PRICE * item.QTY  | number : '1.2-2' }}    
+         
+     </div>
+
+      
+   </div>   
+
+
+
+
+</section>
+
+<section style="width:100%;height:30px;border-left:1px solid;display:inline-block;">
+  <div style="width:25.7%;display:inline-block;"> </div> 
+   <div style="width:20.25%;display:inline-block;padding-top: 3px;text-align: center;"> Total </div> 
+   <div style="width:17%;display:inline-block;text-align: center;">  </div> 
+       <div style="width:5.55%;display:inline-block;text-align: center;"> {{total_qty}} </div> 
+        <div style="width:18.5%;display:inline-block;text-align: center;">  </div> 
+          <div style="width:10.9%;display:inline-block;text-align: center;"> {{ss.i_m.tails[0].SUB_TOTAL | number : '1.2-2'}} </div>
+
+</section>
+ 
+
+
+
+
+
+<section style="height:60px;" > 
+  <div style="display:inline-block;width:72.5%;height:60px;border-right:1px solid;font-size: 21px;
+    font-weight: bold;padding-top: 10px;">
+
+    <label>Amount In Words : {{fig_main}}</label>
+ 
+  </div> 
+  <div style="display: inline-block;width: 27.5%;height: 60px;position: absolute;padding-top:4px;padding-left:5px;border-bottom: 1px solid;border-top: 1px solid;">
+     <div style="display:inline-block;width:100%;height:25px;font-size: 20px;font-weight: bold;">
+  Total Tax &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; {{this.ss.i_m.tails[0].TOTAL_TAX | number : '1.2-2'}}
+     </div>
+      <div style="display:inline-block;width:100%;height:25px;">
+        Round-off : &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; {{frac   | number : '1.2-2'}}
+      </div>
+
+      
+   
+  </div>
+</section>
+
+
+
+<section style="height:33px;" > 
+  <div style="display:inline-block;width:72.5%;height:33px;border-right:1px solid;padding-left: 5px;font-size: 18px;font-weight: bold;">
+  
+  </div>
+      <div style="display: inline-block;
+    width: 27.5%;
+    height: 33px;
+    position: absolute;
+    font-size: 21px;
+    font-weight: bold;
+    padding-left: 5px;
+    border-bottom: 1px solid;">
+     
+  Grand Total :     &nbsp; &nbsp;{{floor | number : '1.2-2'}} 
+    
+     
+ 
+  </div>
+  
+</section>
+
+
+
+
+  <section style="height:55px;border-top:1px solid;border-left:1px solid;border-bottom:1px solid;"> 
+
+<div style="width: 20%;height: 53px;display:inline-block; border-right: 1px solid;text-align: center;">  
+<label style="position: absolute;font-size: 18px;padding-top: 14px;margin-left: -53px;font-weight: 700;">HSN/SAC  </label>
+</div>
+<div style="width: 20%;height: 53px;border-right: 1px solid;display:inline-block;text-align: center;">  
+<!--  -->
+<label style="position: absolute; font-size: 18px; padding-top: 14px; margin-left: -63px;font-weight: 700;">Taxable Value  </label>
+</div>
+
+
+
+<div style="width: 30%;height: 53px;border-right: 1px solid;display:inline-block;"> 
+
+   <div style="width:100%;height:50%;border-bottom:1px solid;text-align: center;">
+
+    <label style="position: absolute;
+    font-size: 14px;
+    margin-left: -27px;
+    padding-top: 5px;
+    font-weight: bold;"> Central Tax  </label>
+
+   </div>
+   
+
+<div style="width:100%;height:50%;">
+
+   <div style="    width: 50%;
+    height: 26px;
+    border-right: 1px solid;
+    text-align: center;
+ 
+    display: inline-block;">
+
+
+         <label style="    padding-top: 3px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;"> Rate  </label>
+
+   </div> 
+
+  <div style="width: 50%;
+    height: 26px;
+    
+    text-align: center;
+
+    display: inline-block;">
+
+
+         <label style="    padding-top: 3px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;"> Amount  </label>
+
+   </div> 
+
+
+</div>
+
+</div>  
+
+
+<div style="width: 30%;height: 53px;border-right: 1px solid;display:inline-block;"> 
+
+   <div style="width:100%;height:50%;border-bottom:1px solid;text-align: center;">
+
+    <label style="position: absolute;
+    font-size: 14px;
+    margin-left: -27px;
+    padding-top: 5px;
+    font-weight: bold;"> State Tax  </label>
+
+   </div>
+   
+
+<div style="width:100%;height:50%;">
+
+   <div style="    width: 50%;
+    height: 26px;
+    border-right: 1px solid;
+    text-align: center;
+ 
+    display: inline-block;">
+
+
+         <label style="    padding-top: 3px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;"> Rate  </label>
+
+   </div> 
+
+  <div style="width: 50%;
+    height: 26px;
+    
+    text-align: center;
+
+    display: inline-block;">
+
+
+         <label style="padding-top: 3px;
+    position: absolute;
+    font-size: 12px;
+    font-weight: 700;"> Amount  </label>
+
+   </div> 
+
+
+</div>
+
+</div>  
+ </section>
+
+
+
+
+
+
+<section *ngFor="let tax of tax_d.deri; let k=index; " style="width: 100%;" [style.height.px]="height_var[k]">
+
+  <div style="width: 20%;border-right: 1px solid;border-left: 1px solid; display: inline-block;" [style.height.px]="height_var[k]" >
+
+ <label   style="position: absolute;text-align: center;
+    display: inline-block;line-height: 15px;width: 19.8%;    overflow-wrap: break-word;
+    padding-left: .2%;">{{tax.HSN}}</label>
+
+  </div>
+  <div style="width: 20.1%;border-right: 1px solid; display: inline-block;"[style.height.px]="height_var[k]">
+
+  <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{tax.TAXABLE_VALUE | number : '1.2-2'}} </label>
+
+  </div>
+  <div style="width: 14.9%;border-right: 1px solid; display: inline-block;" [style.height.px]="height_var[k]">
+
+ <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{tax.CT_RATE}}% </label>
+    
+  </div>
+  <div style="width: 15%;border-right: 1px solid; display: inline-block;" [style.height.px]="height_var[k]">
+
+   <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{tax.CT_AMT | number : '1.2-2'}} </label>
+    
+  </div>
+    <div style="width: 15%;border-right: 1px solid; display: inline-block;" [style.height.px]="height_var[k]">
+   <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{tax.ST_RATE}}% </label>
+      
+  </div>
+  <div style="width: 15%;border-right: 1px solid; display: inline-block;"[style.height.px]="height_var[k]">
+     <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{tax.CT_AMT | number : '1.2-2'}} </label>
+  </div>
+
+
+</section>   
+
+
+
+
+
+
+
+
+
+<section style="width: 100%;height: 30px;border-top: 1px solid;border-bottom:1px solid;">
+
+  <div style="width: 20.1%;border-right: 1px solid;border-left: 1px solid; display: inline-block;height: 30px;">
+     <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> Total </label>
+  </div>
+
+   <div style="width: 20%;border-right: 1px solid; display: inline-block;height: 30px;">
+
+   <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;">  {{ss.i_m.tails[0].SUB_TOTAL | number : '1.2-2'}} </label>
+
+  </div>
+
+    <div style="width: 14.9%;border-right: 1px solid; display: inline-block;height: 30px;">
+  </div>
+  <div style="width: 15%;border-right: 1px solid; display: inline-block;height: 30px;">
+   <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;"> {{(this.ss.i_m.tails[0].TOTAL_TAX)/2 | number : '1.2-2'}} </label>
+
+  </div>
+    <div style="width: 15%;border-right: 1px solid; display: inline-block;height: 30px;">
+  </div>
+  <div style="width: 15%;border-right: 1px solid; display: inline-block;height: 30px;">
+    <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;">  {{(this.ss.i_m.tails[0].TOTAL_TAX)/2 | number : '1.2-2'}} </label>
+  </div>
+
+
+</section>  
+
+<section style="width: 100%;height: 30px;border-bottom: 1px solid;border-bottom:1px solid;">
+  <div style="width: 70%;border-right: 1px solid; display: inline-block;height: 30px;">
+
+<label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 1%;padding-top: 2px;"> Tax Amount: {{fig_tax}} </label>
+
+  </div>
+
+   <div style="width: 30%;border-right: 1px solid; display: inline-block;height: 30px;">
+
+    <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 2%;padding-top: 2px;">Total Tax : {{this.ss.i_m.tails[0].TOTAL_TAX | number : '1.2-2'}}  </label> 
+  </div>
+</section>
+
+
+<section style="width: 100%;height: 220px;  position: fixed; bottom: 18px; width: 100%;">
+
+
+
+
+  <section style="width: 100%;height: 120px;border-bottom: 1px solid;border-top:1px solid;">
+    <div style="width: 50%;border-right: 1px solid; display: inline-block;height: 120px;">
+  
+  <label   style=" position: absolute;
+      display: inline-block;
+      padding-left: 1%;padding-top: 2px;"> Customer's Seal and Signature  </label>
+  
+    </div>
+  
+     <div style="width: 50%;border-right: 1px solid; display: inline-block;height: 120px;">
+  
+  <div style="width: 100%;height:60px; display: inline-block;">
+     <label   style="display: inline-block;
+      /* padding-left: 2%; */
+      float: right;
+      padding-right: 10px;">For {{company_name}}</label>
+  
+  </div>
+     <div style="width: 100%;height:60px; display: inline-block;">
+  
+      <label   style="display: inline-block;
+      /* padding-left: 2%; */
+      padding-top: 20px;
+      float: right;
+      padding-right: 10px;">Authorised Signatory</label>
+  </div>
+  
+    </div>
+  </section>
+
+
+
+  
+<section style="width: 100%;height: 100px;border-top: 1px solid; ">
+  <div style="width: 50%;border-right: 1px solid; display: inline-block;height: 100px;">
+
+<label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 7%;padding-top: 2px;">Declaration</label>
+
+    <label   style=" position: absolute;
+    display: inline-block;
+    padding-left: 1%;padding-top: 27px;">We declare that this invoice shows the actual price of the goods
+    <br> described and that 
+    all particulars are true and correct.
+  </label>
+
+  </div>
+
+   <div style="width: 50%;border-right: 1px solid; display: inline-block;height: 100px;">
+
+   
+
+      <label   style=" position: absolute;
+    display: inline-block;font-weight: bold;
+    padding-left: 2%;padding-top: 2px;">Terms and Conditions </label>
+
+    
+<label   style=" position: absolute;font-weight: bold;
+display: inline-block;
+padding-left: 2%;padding-top: 26px;"> </label>
+
+<label   style=" position: absolute;
+display: inline-block;
+padding-left: 2%;padding-top: 50px;"> Goods once Sold will not be taken back </label>
+
+<label   style=" position: absolute;
+display: inline-block;font-weight: bold;
+padding-left: 2%;padding-top: 73px;"> </label>
+
+  </div>
+</section>
+
+ 
+ 
+
+</section> 
+
+
+
+
+
+

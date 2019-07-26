@@ -1,0 +1,282 @@
+
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="#/dash">Home</a></li>
+      <li class="breadcrumb-item"><a href="#/dash">Purchase</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Purchase Entry</li>
+    </ol>
+  </nav>
+  
+  
+  
+  
+  <div class="tab">
+  
+    <button class="tablinks" (click)="openCity($event, 'London')" id="defaultOpen">Purchase Entry</button>
+ 
+  
+  </div>
+  
+  
+
+
+
+
+<section id="London" class="tabcontent" style="width:100%; height:790px;display:inline-block;background-color:#f1f1f1">
+   
+   <div class="col-md-12">
+  
+
+    <div *ngIf="is_rec_no === 1" style="height: 30px;margin-left: 60%;font-size: 20px;font-weight: bold;">
+     Expence Record No : {{ exp_invos.E_ENTRY_NUMBER }} 
+    
+    </div>
+  </div>
+
+   <div class="col-md-12" style="height: 20px;">
+   </div>
+
+ <div class="row"> 
+    
+     
+
+
+          <div class="col-md-3" style="margin-top: -12px;">
+          <label> Date : </label> 
+         <div style="display:inline-block;">
+         
+          <mat-form-field>
+           <input matInput [matDatepicker]="from_date"  placeholder="Select Bill Date" (dateInput)="cat_from_date(from_date)">
+           <mat-datepicker-toggle matSuffix [for]="from_date"></mat-datepicker-toggle>
+           <mat-datepicker #from_date></mat-datepicker>
+         </mat-form-field>
+
+         </div>
+         </div>
+
+       
+    
+
+
+         <div class="col-md-4">
+            <label> Vendor Name : </label> 
+            <div style="display:inline-block;">
+            <input #boxss style="text-align:center;width:280px;font-size: 18px;border-color:#52c3bb;" class="form-control"  ngui-auto-complete  
+              [source]="arrayOfvendorValues"  
+                      placeholder="Description"  
+                      (blur)="vendor_blur(boxss.value)" [(ngModel)]="vendsi"
+                        list-formatter="(STREET) CUSTOMER_NAME"
+                        display-property-name="CUSTOMER_NAME">
+                        </div>
+          
+           </div>  
+
+
+
+          <div class="col-md-3">
+          <label> Bill No : </label> 
+         <div style="display:inline-block;">
+           <input  type="text" #boxs1 class="form-control"  style="width:220px;font-size: 18px;border-color:#52c3bb;"  
+         (blur)="billno_blur(boxs1.value)">
+         </div>
+         </div>
+
+           <div class="col-xs-1"> 
+       
+           <button mat-fab class="add_but" style="background-color: cadetblue;
+           font-size: 24px;"  (keydown.f4)="removeItem(k)" (click)="addItem()"  (keydown.ArrowDown)="addItem(k)" >+</button>
+       </div>  
+    
+   
+         
+    
+     </div>
+
+
+
+ <section   style="width:100%;height:25px;">
+ </section>
+
+
+<section>
+
+    <mat-card class="header-card" >
+            <div style="margin-top: -18px; display: inline-block;width: 13%;">SI </div> 
+            <div style="display: inline-block; width: 17.5%;"> Description </div>
+            <div style="display: inline-block; width: 10.5%;"> Category </div>
+            <div style="display: inline-block; width: 11%;"> Specification </div>
+            <div style="display: inline-block; width: 11.5%;">Brand Name</div>
+            <div style="display: inline-block; width: 8%;">Quantity</div>
+            <div style="display: inline-block; width: 1%;">  </div>
+           
+           <div style="display: inline-block; width: 1.5%;">  </div>
+         
+            <div style="display: inline-block; width: 10%;"> Price </div> 
+           
+            <div style="display: inline-block; width: 10%;"> Net Price </div> 
+        
+           <div style="display: inline-block; width: 2%;"> 
+               <button *ngIf="isPrint" [disabled]="item_remove_flag()" style="width:100%;" (click)="removeItem()">X</button>
+
+           </div>   
+
+</mat-card>  
+
+
+</section>
+
+<section style="display: inline-block;width: 100%;height: 10px"></section>
+
+ <div class="items-card"  *ngFor="let item of exp_invos.ITEMS; let k=index " ng-animate="'slide-down'">
+     <mat-card class="item-card">
+
+          <div style=" width: 2%; display: inline-block; ">
+              {{k+1}} 
+         </div>
+
+ <div style="width: 25%; display: inline-block; ">
+  <input #autos style="width: 98%; text-align:center" class="form-control"   ngui-auto-complete  
+    [source]="arrayOfKeyValues"  
+            placeholder="Description" (focus)="focus_one(k)"  
+              (blur)="change_one(autos.value)"
+              list-formatter="(ARTICLE_CODE) # SPECIFICATION # [DESCRIPTION] "
+              display-property-name="ARTICLE_CODE">
+
+ </div>  
+
+      <div style="width:1%; display:inline-block;"> </div>
+    <!-- <div style="width:11%; display:inline-block;">
+        
+         <input [attr.disabled]="true"   style="text-align: center;" #box5 [(ngModel)]="item.HSN_CODE" size="10" placeholder="Hsn code"  > 
+        
+    </div> -->
+
+    <div style="width:11%; display:inline-block;">
+
+        <select class="form-control"  (focus)="focus_one(k)"   [(ngModel)]="item.CATEGORY"  id="cats">
+                                 
+            <option *ngFor="let cat of cats" [value]="cat">{{cat}}</option>
+           </select>
+        
+        
+       
+    </div>
+    <div style="width:1%; display:inline-block;"> </div>
+
+    <div style="width:9%; display:inline-block;">
+        <input #spec class="form-control"  style="text-align: center;" #box5 [(ngModel)]="item.SPECS" size="12" placeholder="specification" 
+         (focus)="focus_one(k)"  > 
+    </div>
+
+ 
+    <div style="width:1%; display:inline-block;"> </div>
+
+    <div style="width : 12%;display: inline-block;"  >
+        
+        <input type="text"  #qty style="text-align:center;width: 85%;" size="12" class="form-control"  placeholder="Brand Name"  (focus)="focus_one(k)" 
+            
+            [(ngModel)]="item.BRAND">  
+           
+           
+       </div> 
+
+  
+
+    <div style=" width : 1%;   display: inline-block;">
+    </div>
+    
+    <div style="width : 7%;display: inline-block;">
+        
+        <input type="number" value="0" #qty style="text-align:center;width: 85%;" class="form-control" size="8"  
+         placeholder="Qty"  (focus)="focus_one(k)" 
+            (keyup)="change_qty(qty.value)"
+            [(ngModel)]="item.QUANTITY">  
+           
+           
+       </div>
+   
+
+    <div style=" width : 2.5%;   display: inline-block;">
+    </div>
+
+     <div style=" width : 10%;   display: inline-block;">
+        <input #price [(ngModel)]="item.PRICE" type="number" class="form-control" style="text-align:center;width: 68%;"
+        (keyup)="change_price(price.value)" (focus)="focus_one(k)"  size="7" placeholder="Price" > 
+            
+    </div> 
+     <div style=" width : 2%;   display: inline-block;">
+    </div>
+      <div style=" width : 10%;   display: inline-block;">
+        <input  [attr.disabled]="true"  [(ngModel)]="item.NET_PRICE" class="form-control" style="text-align:center;width: 68%;"size="7" placeholder="Net Price" (focus)="focus_one(k)"  > 
+            
+    </div>
+
+
+     <div style="width:2%; display:inline-block">
+  
+         <button   style="width:100%;" (keydown.f4)="addItem()" (click)="addItem()"  (keydown.ArrowUp)="removeItem(k)"
+          (keydown.ArrowDown)="addItem(k)" >+</button>
+
+   </div>
+
+
+     </mat-card>
+
+  </div> 
+
+
+ <section   style="width:100%;display:inline-block;height:25px;">
+ </section>
+
+
+ <section style="width:100%;height: 40px;"> 
+
+  <div style="width: 15%;height: 40px;display: inline-block">
+    <label> CGST :  </label> 
+
+    <input #CGST [(ngModel)]="exp_invos.CGST" type="text" class="form-control" (keyup)="change_cgst(CGST.value)" style="text-align:center;width: 100%;"
+          size="7" > 
+    </div>
+
+
+  <div style="width: 15%;height: 40px;display: inline-block">
+    <label> SGST :  </label> 
+
+    <input #SGST [(ngModel)]="exp_invos.SGST" type="text" (keyup)="change_sgst(SGST.value)" class="form-control" style="text-align:center;width: 100%;"
+         size="7" > 
+  </div>
+  <div style="width: 15%;height: 40px;display: inline-block">
+    <label> IGST :  </label> 
+
+    <input #IGST [(ngModel)]="exp_invos.IGST" type="text" (keyup)="change_igst(IGST.value)" class="form-control" style="text-align:center;width: 100%;"
+          size="7" > 
+  </div>
+
+   
+
+ </section> 
+
+
+
+<section   style="width:100%;display:inline-block;height:25px;">
+<div  style="width:70%;display:inline-block;height:25px;">
+</div>
+
+<div  style="width:30%;display:inline-block;height:25px;">
+Grand Total : {{ exp_invos.GRAND_TOTAL }}
+</div>
+
+
+ <section   style="width:100%;display:inline-block;height:25px;">
+      <button   [disabled]="isClickedOnce" class="btn btn-primary" style="    margin-top: 3%;
+    margin-left: 80%;" (click)="Save_purchase()">Save purchase</button>
+ </section>
+
+ </section>
+
+       
+</section>
+
+
+

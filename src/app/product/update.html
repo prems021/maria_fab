@@ -1,0 +1,161 @@
+<section class="top_sec" >
+ 
+    <div class="home">
+       
+    <a routerLink="/dash" routerLinkActive="active">home</a>
+    </div>
+    
+    </section> 
+    
+    
+    <section class="bottom_sec">
+    <span class="p_add_p_h">
+      <u>
+    <h4 style="text-align: center;">Update a Product</h4> </u>
+    </span>
+    
+    </section>
+    
+    <section class="middle_sec">
+    
+    <div class="container-fluid col-xs-10 col-sm-10 col-md-4 col-lg-4 col-xs-offset-1 col-sm-offset-1 col-md-offset-4 col-lg-offset-4 shadow">
+    <form [formGroup]="productForm">
+      
+    
+        
+             <div class="form-group">
+    <label >Article Code</label>
+    <input id="product_code" #box_ar formControlName="article_code"  ngui-auto-complete type="text" class="form-control"  [source]="arrayOfproductValues"   placeholder="Article Code"  (blur)="article_blur(box_ar.value)"
+                  list-formatter="ARTICLE_CODE(SPECIFICATION) "
+                  display-property-name="ARTICLE_CODE">
+    <small [hidden]="productForm.controls.article_code.valid" class="text-danger">
+                                               Article code is required.
+                                       </small>
+      </div> 
+
+       <div class="form-group">
+      <label >HSN Code</label>
+      <input id="product_des" formControlName="hsn_code" type="text" class="form-control" placeholder="hsn code">
+      <small [hidden]="productForm.controls.hsn_code.valid" class="text-danger">
+        hsn is required.
+                                         </small>
+    </div>
+    
+        
+
+         <div class="form-group">
+    <label >Description</label>
+    <input id="product_code" #box_DESC formControlName="description"  ngui-auto-complete type="text" class="form-control"  
+    [source]="arrayOfproductValues"   placeholder="Description Code"  
+                  list-formatter="DESCRIPTION(HSN_CODE) "
+                  display-property-name="DESCRIPTION">
+    <small [hidden]="productForm.controls.description.valid" class="text-danger">
+                                          Description is required.
+                                       </small>
+      </div> 
+    
+
+     <div class="form-group">
+    <label >Category      </label> 
+    <select class="form-control"  formControlName="category" id="unit">
+                                 
+        <option *ngFor="let cat of cats" [value]="cat">{{cat}}</option>
+       </select>
+    <!-- <input id="product_code" formControlName="category" type="text" class="form-control" placeholder="category"> -->
+    <small [hidden]="productForm.controls.category.valid" class="text-danger">
+      Category is required.
+                                       </small>
+                                     
+    </div>
+
+     <div class="form-group">
+    <label >Brand Name</label>
+    <input id="product_bn" formControlName="brand_name" type="text" class="form-control" placeholder="brand name">
+    <small [hidden]="productForm.controls.brand_name.valid" class="text-danger">
+      Category is required.
+                                       </small>
+  </div>
+
+  <div class="form-group">
+    <label >Specification</label>
+    <input id="product_spec" formControlName="specification" type="text" class="form-control" placeholder="specification">
+    <small [hidden]="productForm.controls.specification.valid" class="text-danger">
+      Category is required.
+                                       </small>
+  </div>
+
+ 
+
+      <div class="form-group">
+    <label> Unit </label>
+     <select class="form-control" formControlName="unit" id="unit">
+                                 
+                                               <option *ngFor="let unit of units" [value]="unit">{{unit}}</option>
+                                               </select>
+     
+  </div>
+     
+        
+     
+    
+    
+   
+      <div class="form-group">
+        <label> Tax </label>
+        <input  formControlName="tax"    type="number"  class="form-control" placeholder="tax">
+       </div>
+    
+       <div class="form-group">
+        <label>Available Quantity</label>
+        <input id="avail_qty" formControlName="avail_qty" type="number" class="form-control" 
+        placeholder="Available Quantity">
+        
+      </div>
+    
+      <div class="form-group">
+        <label> Net Price </label>
+        <input  formControlName="net_price" (keyup)="cal_price()"   type="number"  class="form-control" 
+        placeholder="net price">
+       </div>
+     
+    
+       <div class="form-group">
+        <label> Price </label>
+        <input  formControlName="price"    type="number"  class="form-control" placeholder="price">
+       </div>
+
+
+       <div class="form-group">
+        <label> Purchase Price </label>
+        <input  formControlName="pur_price"    type="number"  class="form-control" placeholder="Purchase price">
+       </div>
+    
+    
+     
+    
+    
+    
+    
+ 
+
+      
+      <div class="form-group">
+        <label></label>
+        
+        
+      </div>
+    
+    </form> 
+    
+    
+    
+   <button class="btn btn-primary pull-right" (click)="update_product()" 
+   type="button"><span class="glyphicon glyphicon-ok"></span> Update</button>
+
+
+
+    <button  class="btn btn-primary pull-right" (click)="delete_product()" 
+   type="button"><span class="glyphicon glyphicon-ok"></span> Delete</button>
+    </div>
+    </section>
+    

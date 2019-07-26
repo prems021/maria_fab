@@ -1,0 +1,27 @@
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#/dash">Home</a></li>
+    <li class="breadcrumb-item"><a href="#/dash">View</a></li>
+    <li class="breadcrumb-item active" aria-current="page">B2B Bill</li>
+  </ol>
+</nav>
+
+
+<div *ngIf="!view">
+Loading............
+</div>
+
+
+<div *ngIf="view">
+
+<div  class="columns">
+  <div class="column col-12">
+    <ngx-table [configuration]="configuration" [detailsTemplate]="detailsTemplateRef" [data]="data" [columns]="columns" 
+    (event)="eventEmitted($event)">
+    </ngx-table>
+  </div>
+</div>
+
+</div>  
+
