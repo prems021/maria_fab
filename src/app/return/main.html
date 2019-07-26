@@ -1,0 +1,161 @@
+<h1> Sales Return </h1> 
+
+<section style="width:100%;height:50px">
+
+<label style="width: 15%;
+height: 30px;
+font-size: initial;
+font-weight: bold;
+display: inline-block;"> Enter Invoice Number : </label>
+<div style="display:inline-block;height: 30px;width: 20%">  
+
+<input type="text" style="width: 250px; border-color:#52c3bb;"  class="form-control" 
+[(ngModel)]="invoice_string">
+</div>
+
+<div style="display:inline-block;height: 30px;width: 20%">  
+        <button   [disabled]="isClickedOnce"  id="non-printable" class="btn btn-primary"  (click)="search_invoice()"> Search </button>
+    </div>
+</section>
+
+
+<section style="width:100%;height: 100px;" *ngIf = "this.ss.i_m.flags[0].IS_SERVER_RES">
+  
+<label style="    font-size: larger;
+    font-weight: bold;"> Customer Name: {{this.ss.i_m.heads[0].CUSTOMER_NAME}}</label> <br>
+<label style="    font-size: larger;
+    font-weight: bold;"> Customer Street: {{this.ss.i_m.heads[0].CUSTOMER_STREET}}</label><br>
+<label style="    font-size: larger;
+    font-weight: bold;"> Due Amount: {{this.ss.i_m.tails[0].TOTAL_DUE}}</label>
+</section>
+
+
+
+
+<section   *ngIf = "this.ss.i_m.flags[0].IS_SERVER_RES" style="width:100%;">
+
+
+
+
+        <div class="items-card"  *ngFor="let item of ss.i_m.items; let k=index " ng-animate="'slide-down'">
+
+                <mat-card class="item-card">
+                   <div style=" width: 4%; display: inline-block; ">
+                           {{k+1}} 
+                  </div>
+             
+                      <div  style="width: 28%; display: inline-block; ">
+                     <input  style="width: 98%; text-align:center"     [(ngModel)]="item.DESCRIPTION"                    
+                         placeholder="Article code"  >
+             
+                   </div>   
+             
+                
+             
+                      <div style="width:2%; display:inline-block;"> </div>
+                   <div style="width:12.5%; display:inline-block;">
+             
+                     <input  style="width: 98%; text-align:center"     [(ngModel)]="item.HSN_CODE" 
+                
+                        placeholder="Description">
+             
+                     
+                     
+                    
+                 </div> 
+             
+                          
+             
+             
+                  <div style="width : 9.1%;display: inline-block;">
+                     
+                        <input #box style="text-align:center;" size="6"  placeholder="Quantity"  
+                     
+                      [(ngModel)]="item.QTY">  
+                     
+                     
+                 </div>
+             
+                 <div style=" width : 3.5%;display: inline-block;">
+             
+                    {{item.UNIT}}
+               
+                  </div>
+             
+                    <div style="width : 5.7%;display: inline-block;">
+                     
+                        <input [disabled]="true"  #boxgst style="text-align:center;" size="5"     
+                      
+                      [(ngModel)]="item.TAX">  
+                     
+                     
+                 </div>
+             
+                    <div style="width : 1.7%;display: inline-block;">
+                     
+                                     
+                    </div>
+             
+                     <div style="width : 12.35%;display: inline-block;">
+                     
+                        <input #box_rate  style="text-align:center;"
+                       size="13" placeholder="PRICE" [(ngModel)]="item.PRICE" >  
+                     
+                     
+                 </div>
+             
+             
+             
+                 <div style=" width : 12%;   display: inline-block;">
+                     <input #box_net [disabled]="true" [(ngModel)]="item.NET_PRICE"  
+                     style="text-align:center;" 
+                     size="10" placeholder=" " > 
+                         
+                 </div>
+             
+             
+             
+              
+             
+             
+                <div style="width:.5%; display:inline-block">
+                </div>
+                
+             
+                
+                <div style="width:.5%; display:inline-block">
+                 </div>
+             
+                 <div   style="display: inline-block; width: 2%;"> 
+                   <mat-checkbox (change)="is_ret(k)" [(ngModel)] = "item.IS_RETURN">Return</mat-checkbox>
+                 </div> 
+               
+               <div style="width:2%; display:inline-block">
+               
+                    
+             
+             
+                </div>  
+             
+             
+                </mat-card>
+             
+             </div>
+             
+
+
+
+
+
+</section>
+
+<section *ngIf = "this.ss.i_m.flags[0].IS_SERVER_RES" style="width:100%;height:50px">
+
+<div style="display:inline-block;height: 30px;width: 20%">  
+        <button  style="margin-left: 100%;
+    margin-top: 10px;" [disabled]="isClickedOnce"  id="non-printable" class="btn btn-primary"  (click)="save_return()"> Save </button>
+    </div>
+
+
+</section>
+
